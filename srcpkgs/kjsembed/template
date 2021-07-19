@@ -1,9 +1,8 @@
 # Template file for 'kjsembed'
 pkgname=kjsembed
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="gettext kcoreaddons extra-cmake-modules"
 makedepends="qt5-devel qt5-tools-devel qt5-svg-devel kjs-devel ki18n-devel kdoctools-devel"
 short_desc="KDE Binding Javascript object to QObjects"
@@ -11,7 +10,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kjsembed"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/portingAids/${pkgname}-${version}.tar.xz"
-checksum=fc7efebc3d7b40066e215ca61cc8e15e0d1e389706277c5f6b972b96020cf229
+checksum=6bc3ad5ca87eb9cf6b87885e06963fb9d9d46eb5a4d85d741326a8ef971163ab
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools"

@@ -69,7 +69,7 @@ $(grep -E '^XBPS_.*' "$XBPS_CONFIG_FILE")
 XBPS_MASTERDIR=/
 XBPS_CFLAGS="$XBPS_CFLAGS"
 XBPS_CXXFLAGS="$XBPS_CXXFLAGS"
-XBPS_FFLAGS="-fPIC -pipe"
+XBPS_FFLAGS="$XBPS_FFLAGS"
 XBPS_CPPFLAGS="$XBPS_CPPFLAGS"
 XBPS_LDFLAGS="$XBPS_LDFLAGS"
 XBPS_HOSTDIR=/host
@@ -106,14 +106,12 @@ chroot_prepare() {
         msg_error "Bootstrap not installed in $XBPS_MASTERDIR, can't continue.\n"
     fi
 
-    # Create some required files.
-    if [ -f /etc/localtime ]; then
-        cp -f /etc/localtime $XBPS_MASTERDIR/etc
-    elif [ -f /usr/share/zoneinfo/UTC ]; then
-        cp -f /usr/share/zoneinfo/UTC $XBPS_MASTERDIR/etc/localtime
-    fi
+    # Some software expects /etc/localtime to be a symbolic link it can read to
+    # determine the name of the time zone, so set up the expected link
+    # structure.
+    ln -sf ../usr/share/zoneinfo/UTC $XBPS_MASTERDIR/etc/localtime
 
-    for f in dev sys proc host boot; do
+    for f in dev sys tmp proc host boot; do
         [ ! -d $XBPS_MASTERDIR/$f ] && mkdir -p $XBPS_MASTERDIR/$f
     done
 

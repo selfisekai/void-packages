@@ -1,9 +1,8 @@
 # Template file for 'kcoreaddons'
 pkgname=kcoreaddons
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel"
 depends="shared-mime-info"
@@ -12,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kcoreaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=238e4cc422a62a2c3cb12915dbb52ad1a04be2ed13f59bfe3d1959266f08471d
+checksum=754d3ca6efe5796f671d65a4529d2b3775187c8e26e78275b40a4b012c131fb0
 
 post_install() {
 	vsed -e 's;${_IMPORT_PREFIX};/usr;g' \

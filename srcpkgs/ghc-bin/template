@@ -4,7 +4,7 @@ version=8.8.4
 revision=1
 archs="i686 x86_64* ppc64le*"
 wrksrc="ghc-${version%[!0-9]}"
-hostmakedepends="ncurses perl libffi libnuma"
+hostmakedepends="perl libffi libnuma"
 depends="ncurses perl gcc libffi-devel gmp-devel"
 short_desc="Glorious Haskell Compiler - precompiled binaries"
 maintainer="Orphaned <orphan@voidlinux.org>"
@@ -34,6 +34,8 @@ ppc64le)
 ppc64le-musl)
 	distfiles="https://alpha.de.repo.voidlinux.org/distfiles/ghc-${version}-powerpc64le-void-linux-musl.tar.xz"
 	checksum=b35ba0cb20a05555ac6c2c92f9f090c665e55b3d295d58a801eb88bd4f6baab3
+	;;
+*) broken="No distfiles available for this target"
 	;;
 esac
 

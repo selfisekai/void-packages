@@ -1,6 +1,6 @@
 # Template file for 'z3'
 pkgname=z3
-version=4.8.9
+version=4.8.12
 revision=2
 wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=configure
@@ -15,7 +15,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="MIT"
 homepage="https://github.com/Z3Prover/z3"
 distfiles="https://github.com/Z3Prover/z3/archive/z3-${version}.tar.gz"
-checksum=c9fd04b9b33be74fffaac3ec2bc2c320d1a4cc32e395203c55126b12a14ff3f4
+checksum=e3aaefde68b839299cbc988178529535e66048398f7d083b40c69fe0da55f8b7
 
 build_options="ocaml"
 desc_option_ocaml="Enable support for OCaml bindings"
@@ -26,6 +26,11 @@ subpackages="$(vopt_if ocaml z3-ocaml)"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default="ocaml"
 fi
+
+do_check() {
+	make ${MAKEJOBS} -C build test
+	./build/test-z3 /a
+}
 
 post_install() {
 	vbin build/z3_tptp

@@ -1,9 +1,8 @@
 # Template file for 'threadweaver'
 pkgname=threadweaver
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-devel"
 makedepends="qt5-devel"
 short_desc="KDE Helper for multithreaded programming"
@@ -11,7 +10,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/threadweaver"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=4f898107074943f103fd9d4ee2b82cddcb705382424bd47fcca21b11c167d8f2
+checksum=e294e61d72dd0fc678c655475694fc1df3d703e04b043ae0a8666ed9399ebd42
 
 threadweaver-devel_package() {
 	short_desc+=" - development"

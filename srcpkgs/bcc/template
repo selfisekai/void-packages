@@ -1,6 +1,6 @@
 # Template file for 'bcc'
 pkgname=bcc
-version=0.17.0
+version=0.20.0
 revision=2
 wrksrc="bcc"
 build_style=cmake
@@ -13,15 +13,24 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Apache-2.0"
 homepage="https://github.com/iovisor/bcc"
 distfiles="https://github.com/iovisor/bcc/releases/download/v${version}/bcc-src-with-submodule.tar.gz"
-checksum=684cbc5b0b4a19a7fb1993932b9207870cde9ea53653ebe95ab70d58c086bccc
+checksum=93edc925675262aa509f5eaf146f2fc7dfa3e01d1b0336a5de01ee6d72fa493b
 python_version="3"
+
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+fi
 
 post_extract() {
 	sed -i '/tests/d' CMakeLists.txt  # break on musl
+	sed -i 's/<error.h>/<errno.h>/' examples/cpp/KModRetExample.cc
 }
 bcc-tools_package() {
 	short_desc+=" - tools"
-	depends="python3-bcc>=${version}_${revision} linux-headers"
+	depends="python3-bcc>=${version}_${revision}"
+	case "$XBPS_TARGET_MACHINE" in
+		# only add linux-headers for archs it's currently built for
+		i686*|x86_64*|ppc*|aarch64*) depends+=" linux-headers";;
+	esac
 	pkg_install() {
 		vmove usr/share/bcc/man/man8
 		mv ${PKGDESTDIR}/usr/share/bcc/man ${PKGDESTDIR}/usr/share/man

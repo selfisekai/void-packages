@@ -1,6 +1,6 @@
 # Template file for 'retroarch'
 pkgname=retroarch
-version=1.9.0
+version=1.9.6
 revision=1
 wrksrc="RetroArch-$version"
 build_style=configure
@@ -23,14 +23,16 @@ short_desc="Official reference frontend for the libretro API"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://www.retroarch.com/"
+changelog="https://raw.githubusercontent.com/libretro/RetroArch/master/CHANGES.md"
 distfiles="https://github.com/libretro/RetroArch/archive/v$version.tar.gz"
-checksum=39d7ad9298c9487fb4848cd6a257c23a95ee85f83c75302f97bcc4797f154b6a
+checksum=2b7c81df4c742cc1bcd00297bc0bd9f1f4ea4bf9518d161fb013f008c26f92b9
 
-build_options="ffmpeg flac gles2 glslang jack miniupnpc opengl pulseaudio qt5 sdl2 vulkan wayland x11"
+build_options="ffmpeg flac gles2 glslang jack miniupnpc neon opengl pulseaudio qt5 sdl2 vulkan wayland x11"
 build_options_default="ffmpeg flac gles2 glslang miniupnpc opengl pulseaudio sdl2 vulkan wayland x11"
 
 desc_option_glslang="Enable support for GLSL shaders"
 desc_option_miniupnpc="Enable support for NAT traversal"
+desc_option_neon="Enable support for ARM Neon SIMD extension"
 
 if [ "$build_option_gles2" ]; then
 	configure_args+=" --enable-opengles --enable-opengles3"
@@ -80,17 +82,30 @@ if [ "$build_option_x11" ]; then
 	fi
 fi
 
-do_configure() {
-	if [ "$CROSS_BUILD" ]; then
-		configure_args+=" --host=${XBPS_CROSS_TRIPLET}"
-	fi
+case "$XBPS_TARGET_MACHINE" in
+	i686*|x86_64*)
+		configure_args+=" --enable-sse --enable-threads"
+		;;
+	ppc*)
+		configure_args+=" --enable-threads"
+		;;
+	aarch64*)
+		configure_args+=" --enable-threads"
+		;;
+	armv7*)
+		build_options_default+=" neon"
 
-	case "$XBPS_TARGET_MACHINE" in
-		i686*|x86_64*) configure_args+=" --enable-sse --enable-threads";;
-		ppc*) configure_args+=" --enable-threads";;
-		aarch64*) configure_args+=" --disable-neon --enable-threads";;
-		armv7*) configure_args+=" --disable-neon --enable-threads";;
-		arm*) configure_args+=" --disable-neon";;
+		configure_args+=" --enable-threads $(vopt_enable neon)"
+
+		if [ "$build_option_neon" ]; then
+			CFLAGS+=" -mfpu=neon"
+		fi
+		;;
+	arm*)
+		configure_args+=" --disable-neon"
+		;;
 	esac
-	./configure ${configure_args}
-}
+
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" --host=${XBPS_CROSS_TRIPLET}"
+fi

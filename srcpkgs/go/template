@@ -1,6 +1,6 @@
 # Template file for 'go'
 pkgname=go
-version=1.15.5
+version=1.16.5
 revision=1
 create_wrksrc=yes
 build_wrksrc=go
@@ -9,8 +9,9 @@ short_desc="Go Programming Language"
 maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="http://golang.org/"
+changelog="https://golang.org/doc/devel/release.html"
 distfiles="https://golang.org/dl/go${version}.src.tar.gz"
-checksum=c1076b90cf94b73ebed62a81d802cd84d43d02dea8c07abdc922c57a071c84f1
+checksum=7bfa7e5908c7cc9e75da5ddf3066d7cbcf3fd9fa51945851325eebc17f50ba80
 nostrip=yes
 noverifyrdeps=yes
 

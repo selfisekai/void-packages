@@ -1,14 +1,14 @@
 # Template file for 'python3'
 #
-# THIS PKG MUST BE SYNCHRONIZED WITH "srcpkgs/python3-tkinter".
+# THIS PACKAGE MUST BE SYNCHRONIZED WITH "srcpkgs/python3-tkinter".
 #
 pkgname=python3
-version=3.9.1
-revision=1
+version=3.9.6
+revision=2
 wrksrc="Python-${version}"
 pycompile_dirs="usr/lib/python${version%.*}"
 hostmakedepends="pkgconf"
-makedepends="libffi-devel readline-devel gdbm-devel libressl-devel
+makedepends="libffi-devel readline-devel gdbm-devel openssl-devel
  expat-devel sqlite-devel bzip2-devel zlib-devel liblzma-devel"
 depends="ca-certificates"
 checkdepends="$depends iana-etc"
@@ -17,7 +17,7 @@ maintainer="Andrew J. Hesford <ajh@sideband.org>"
 license="Python-2.0"
 homepage="https://www.python.org"
 distfiles="https://www.python.org/ftp/python/${version}/Python-${version}.tar.xz"
-checksum=991c3f8ac97992f3d308fefeb03a64db462574eadbff34ce8bc5bb583d9903ff
+checksum=397920af33efc5b97f2e0b57e91923512ef89fc5b3c1d21dbfc8c4828ce0108a
 
 alternatives="
  python:idle:/usr/bin/idle${version%.*}
@@ -48,8 +48,9 @@ do_configure() {
 	fi
 	./configure ${configure_args} ${_args} \
 		--enable-shared --enable-ipv6 --enable-loadable-sqlite-extensions \
-		--with-threads --with-computed-gotos --with-dbmliborder=gdbm:ndbm \
-		--with-system-expat --with-system-ffi --without-ensurepip
+		--with-computed-gotos --with-dbmliborder=gdbm:ndbm \
+		--with-system-expat --with-system-ffi --without-ensurepip \
+		ac_cv_working_tzset=yes
 }
 
 do_build() {

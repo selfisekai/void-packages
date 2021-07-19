@@ -1,6 +1,6 @@
 # Template file for 'upmpdcli'
 pkgname=upmpdcli
-version=1.5.5
+version=1.5.12
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config tar"
@@ -10,7 +10,7 @@ maintainer="amak <amak.git@outlook.com>"
 license="LGPL-2.1-or-later"
 homepage="https://www.lesbonscomptes.com/upmpdcli"
 distfiles="https://www.lesbonscomptes.com/upmpdcli/downloads/upmpdcli-${version}.tar.gz"
-checksum=45fce9c71a45f1ec0d1cb2924bf7ece444c44a918a0c437c1c768baa3d4a345d
+checksum=1d7b6ab360c2549a7e3eff4f261471761dd837e18327a3ca29de1981c090ff3b
 python_version=3
 
 system_accounts="_upmpdcli"

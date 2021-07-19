@@ -1,11 +1,11 @@
 # Template file for 'kmix'
 pkgname=kmix
-version=20.12.0
+version=21.04.3
 revision=1
 build_style=cmake
 configure_args="-DSYSCONF_INSTALL_DIR=/etc -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools
- kdoctools kcoreaddons gettext"
+ kdoctools kcoreaddons kconfig gettext"
 makedepends="plasma-framework-devel kinit-devel alsa-lib-devel pulseaudio-devel
  libcanberra-devel ksolid-devel"
 short_desc="KDE's mixer application"
@@ -13,4 +13,4 @@ maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, GFDL-1.2-only"
 homepage="https://www.kde.org/applications/multimedia/kmix/"
 distfiles="${KDE_SITE}/release-service/${version}/src/kmix-${version}.tar.xz"
-checksum=161b743868a4fe3dad42c5a50a9568c61d8e44cf73f1f4f3e53e2de1c8936e72
+checksum=6a78baea78c23803c3822d965b8776f4975ee1a73fdae23e39b00defd36864bb

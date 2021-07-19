@@ -1,10 +1,10 @@
 # Template file for 'nss'
 
-_nsprver=4.29
+_nsprver=4.30
 
 pkgname=nss
-version=3.60
-revision=1
+version=3.67
+revision=2
 hostmakedepends="perl"
 makedepends="nspr-devel sqlite-devel zlib-devel"
 depends="nspr>=${_nsprver}"
@@ -13,7 +13,7 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="MPL-2.0"
 homepage="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 distfiles="${MOZILLA_SITE}/security/nss/releases/NSS_${version//\./_}_RTM/src/nss-${version}.tar.gz"
-checksum=84abd5575ab874c53ae511bd461e5d0868d1a1b384ee40753154cdd1d590fe3d
+checksum=f6549a9148cd27b394b40c77fa73111d5ea23cdb51d796665de1b7458f88ce7f
 
 export NS_USE_GCC=1
 export LIBRUNPATH=
@@ -44,10 +44,13 @@ do_build() {
 		*) export NSS_DISABLE_AVX2=1 ;;
 	esac
 
-	# it's actually VSX, so disable on all BE ppc
 	case "$XBPS_TARGET_MACHINE" in
 		ppc64le*) ;;
-		ppc*) export NSS_DISABLE_ALTIVEC=1 ;;
+		ppc64*) export NSS_DISABLE_CRYPTO_VSX=1 ;;
+		ppc*)
+			export NSS_DISABLE_CRYPTO_VSX=1
+			export NSS_DISABLE_ALTIVEC=1
+			;;
 	esac
 
 	cd nss
@@ -55,6 +58,8 @@ do_build() {
 	make ${makejobs} LD=$BUILD_LD LDFLAGS="$BUILD_LDFLAGS" ${_native_use64} -C coreconf
 
 	if [ "$CROSS_BUILD" ]; then
+		# We don't run test in cross build
+		export NSS_DISABLE_GTESTS=1
 		if [ "$XBPS_TARGET_WORDSIZE" = "64" ]; then
 			CFLAGS+=" -DNS_PTR_GT_32"
 			_target_use64="USE_64=1"
@@ -113,26 +118,26 @@ do_install() {
 	NSS_VMINOR=$(grep "#define.*NSS_VMINOR" nss/lib/nss/nss.h | awk '{print $3}')
 	NSS_VPATCH=$(grep "#define.*NSS_VPATCH" nss/lib/nss/nss.h | awk '{print $3}')
 
-	sed ${FILESDIR}/nss.pc.in \
-		-e "s,%libdir%,/usr/lib,g" \
-		-e "s,%prefix%,/usr,g" \
-		-e "s,%exec_prefix%,/usr/bin,g" \
-		-e "s,%includedir%,/usr/include/nss,g" \
+	sed     -e "s,%prefix%,/usr,g" \
+		-e 's,%exec_prefix%,${prefix},g' \
+		-e 's,%includedir%,${prefix}/include/nss,g' \
+		-e 's,%libdir%,${prefix}/lib,g' \
 		-e "s,%NSPR_VERSION%,${_nsprver},g" \
-		-e "s,%NSS_VERSION%,${version},g" > \
-		${DESTDIR}/usr/lib/pkgconfig/nss.pc
+		-e "s,%NSS_VERSION%,${version},g" \
+		nss/pkg/pkg-config/nss.pc.in \
+		> ${DESTDIR}/usr/lib/pkgconfig/nss.pc
 
 	ln -sf nss.pc ${DESTDIR}/usr/lib/pkgconfig/mozilla-nss.pc
 	chmod 644 ${DESTDIR}/usr/lib/pkgconfig/*.pc
 
-	sed ${FILESDIR}/nss-config.in \
-		-e "s,@libdir@,/usr/lib,g" \
-		-e "s,@prefix@,/usr/bin,g" \
-		-e "s,@exec_prefix@,/usr/bin,g" \
-		-e "s,@includedir@,/usr/include/nss,g" \
+	sed     -e "s,@prefix@,/usr,g" \
+		-e 's,@exec_prefix@,${prefix},g' \
+		-e 's,@includedir@,${prefix}/include/nss,g' \
+		-e 's,@libdir@,${prefix}/lib,g' \
 		-e "s,@MOD_MAJOR_VERSION@,${NSS_VMAJOR},g" \
 		-e "s,@MOD_MINOR_VERSION@,${NSS_VMINOR},g" \
 		-e "s,@MOD_PATCH_VERSION@,${NSS_VPATCH},g" \
+		nss/pkg/pkg-config/nss-config.in \
 		> ${DESTDIR}/usr/bin/nss-config
 	chmod 755 ${DESTDIR}/usr/bin/nss-config
 

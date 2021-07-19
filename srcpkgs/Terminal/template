@@ -1,10 +1,11 @@
 # Template file for 'Terminal'
 pkgname=Terminal
 version=0.9.9
-revision=1
+revision=2
 build_style=gnu-makefile
 make_use_env=yes
-hostmakedepends="gnustep-make gcc-objc"
+make_build_args="OBJCFLAGS=-fcommon messages=yes"
+hostmakedepends="gnustep-make gcc-objc which"
 makedepends="gnustep-base-devel gnustep-gui-devel"
 depends="gnustep-base gnustep-gui gnustep-back"
 short_desc="Terminal emulator for GNUstep"

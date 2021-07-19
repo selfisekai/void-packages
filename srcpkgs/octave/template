@@ -1,7 +1,7 @@
 # Template file for 'octave'
 pkgname=octave
 version=5.2.0
-revision=1
+revision=2
 build_style=gnu-configure
 configure_args=" --with-blas=openblas --with-lapack=openblas"
 hostmakedepends="perl gcc-fortran pkg-config gnuplot"
@@ -72,6 +72,11 @@ makedepends+="
 	$(vopt_if openmp libgomp-devel)
 	$(vopt_if qhull libqhull-devel)
 	$(vopt_if zlib zlib-devel)"
+
+case "$XBPS_TARGET_MACHINE" in
+	ppc64*) ;;
+	ppc*) broken="fails to configure";;
+esac
 
 pre_build() {
 	chmod +x build-aux/mk-opts.pl

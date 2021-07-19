@@ -1,9 +1,9 @@
 # Template file for 'kio'
 pkgname=kio
-version=5.77.0
-revision=2
+version=5.84.0
+revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF
+configure_args="
  -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 hostmakedepends="kcoreaddons extra-cmake-modules kauth gettext
  qt5-host-tools qt5-qmake python kdoctools libxml2 kcoreaddons"
@@ -15,9 +15,12 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kio"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=237c85c9dbcfcd366290512005b0e8498c10f3b300524633bbc9319a8327a14f
+checksum=96be2b732faf97a484edc5238049ad22f0f233b9e404468f4da40c5ec839e0d3
 
-CXXFLAGS+=" -fpermissive"
+do_check() {
+	cd build
+	ctest -E 'kiocore-kacltest|kiocore-kmountpointtest|kiocore-kfileitemtest|applicationlauncherjob_forkingtest|applicationlauncherjob_scopetest|applicationlauncherjob_servicetest|kiowidgets-krununittest|kiowidgets-kdirlistertest|kiowidgets-kdirmodeltest|kiowidgets-kurifiltertest-colon-separator|kiowidgets-kurifiltertest-space-separator|kiofilewidgets-kfilewidgettest|kiofilewidgets-kfileplacesmodeltest'
+}
 
 kio-devel_package() {
 	short_desc+=" - development"

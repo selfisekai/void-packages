@@ -1,9 +1,8 @@
 # Template file for 'kiconthemes'
 pkgname=kiconthemes
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules kcoreaddons qt5-qmake qt5-host-tools
  gettext python3"
 makedepends="kitemviews-devel qt5-svg-devel karchive-devel kconfigwidgets-devel"
@@ -12,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-only, GPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kiconthemes"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=735834671bd32f26da075d25f4209faac04fcc6af2f4090f99d055a3a277dc79
+checksum=f6dd5e7510217d71df871dc299a6a382e3adbe16f72c6c16b62b75a37b632065
 
 kiconthemes-devel_package() {
 	short_desc+=" - development"

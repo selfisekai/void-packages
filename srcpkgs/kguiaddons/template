@@ -1,6 +1,6 @@
 # Template file for 'kguiaddons'
 pkgname=kguiaddons
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=ON -DWaylandScanner_EXECUTABLE=/usr/bin/wayland-scanner"
@@ -13,11 +13,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-only, LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kguiaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=df674a64142d494345daed77cb64ab5b27960ebeda94ae30287bf311acaef63c
-
-pre_check() {
-	export QT_QPA_PLATFORM=offscreen
-}
+checksum=2924e91c79a91c8f2714c5f75c13c269cc95595d028d8e3613dba142ebef285d
 
 kguiaddons-devel_package() {
 	short_desc+=" - development"

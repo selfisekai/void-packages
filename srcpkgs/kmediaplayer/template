@@ -1,9 +1,8 @@
 # Template file for 'kmediaplayer'
 pkgname=kmediaplayer
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules
  qt5-host-tools qt5-qmake python3 gettext"
 makedepends="kparts-devel"
@@ -12,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="X11"
 homepage="https://invent.kde.org/frameworks/kmediaplayer"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/portingAids/${pkgname}-${version}.tar.xz"
-checksum=cd2c6a33aac3a8fd65e597d7287147f5e1a60cbb8318764a3776ca29b3314bbc
+checksum=63efe6c2f1d61440713984dd37c42d4e30d0228c820df47e823830c6533bfdff
 
 kmediaplayer-devel_package() {
 	short_desc+=" - development"

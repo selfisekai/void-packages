@@ -1,6 +1,6 @@
 # Template file for 'ktnef'
 pkgname=ktnef
-version=20.12.0
+version=21.04.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3
@@ -11,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
 distfiles="${KDE_SITE}/release-service/${version}/src/ktnef-${version}.tar.xz"
-checksum=755307e99f7ced99695a19d3beceb074c0479db2670b8feed3c25b5b1f274f97
+checksum=e71fa77fee033fb763f0f5c48164178f28521bda4271820457340f02fdbe5dda
 
 ktnef-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

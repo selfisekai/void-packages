@@ -1,7 +1,7 @@
 # Template file for 'olm-python3'
 pkgname=olm-python3
-version=3.1.5
-revision=3
+version=3.2.3
+revision=1
 wrksrc="olm-${version}"
 build_wrksrc=python
 build_style=python3-module
@@ -13,7 +13,9 @@ maintainer="Adam Beckmeyer <adam_gpg@thebeckmeyers.xyz>"
 license="Apache-2.0"
 homepage="https://gitlab.matrix.org/matrix-org/olm"
 distfiles="https://gitlab.matrix.org/matrix-org/olm/-/archive/${version}/olm-${version}.tar.bz2"
-checksum=1cd4d92ae56373836362c3300ee79a14005a26cda3d399d278d468ba5c7c0713
+checksum=f61022cb6eb95804464d1abb3408b8cf15299994529c005b9bc93110a91ae2ab
+# requires unpackaged pytest-{benchmark,isort}
+make_check=no
 
 pre_build() {
 	make include/olm/olm.h

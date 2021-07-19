@@ -13,7 +13,7 @@ do_configure() {
 		qmake="/usr/lib/qt/bin/qmake"
 	fi
 	if [ -z "${qmake}" ]; then
-		msg_error "${pkgver}: Could not find qmake - missing in hostdepends?\n"
+		msg_error "${pkgver}: Could not find qmake - missing in hostmakedepends?\n"
 	fi
 	if [ "$CROSS_BUILD" ] && [ "$qmake" == "/usr/lib/qt5/bin/qmake" ]; then
 		case $XBPS_TARGET_MACHINE in
@@ -28,7 +28,7 @@ do_configure() {
 		mkdir -p "${wrksrc}/.target-spec/linux-g++"
 		cat > "${wrksrc}/.target-spec/linux-g++/qmake.conf" <<_EOF
 MAKEFILE_GENERATOR      = UNIX
-CONFIG                 += incremental
+CONFIG                 += incremental no_qt_rpath
 QMAKE_INCREMENTAL_STYLE = sublib
 
 include(/usr/lib/qt5/mkspecs/common/linux.conf)
@@ -37,6 +37,7 @@ include(/usr/lib/qt5/mkspecs/common/g++-unix.conf)
 
 QMAKE_TARGET_CONFIG     = ${XBPS_CROSS_BASE}/usr/lib/qt5/mkspecs/qconfig.pri
 QMAKE_TARGET_MODULE     = ${XBPS_CROSS_BASE}/usr/lib/qt5/mkspecs/qmodule.pri
+QMAKEMODULES            = ${XBPS_CROSS_BASE}/usr/lib/qt5/mkspecs/modules
 QMAKE_CC                = ${CC}
 QMAKE_CXX               = ${CXX}
 QMAKE_LINK              = ${CXX}
@@ -58,7 +59,7 @@ _EOF
 		mkdir -p "${wrksrc}/.host-spec/linux-g++"
 		cat > "${wrksrc}/.host-spec/linux-g++/qmake.conf" <<_EOF
 MAKEFILE_GENERATOR      = UNIX
-CONFIG                 += incremental
+CONFIG                 += incremental no_qt_rpath
 QMAKE_INCREMENTAL_STYLE = sublib
 
 include(/usr/lib/qt5/mkspecs/common/linux.conf)
@@ -126,6 +127,7 @@ _EOF
 			QMAKE_CFLAGS="${CFLAGS}" \
 			QMAKE_CXXFLAGS="${CXXFLAGS}" \
 			QMAKE_LFLAGS="${LDFLAGS}" \
+			CONFIG+=no_qt_rpath \
 			${configure_args}
 	fi
 }

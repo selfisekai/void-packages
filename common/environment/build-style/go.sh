@@ -9,8 +9,7 @@ else
 	# gccgo compiler
 	if [ -z "$archs" ]; then
 		# we have support for these in our gcc
-		# ppcle is missing, and mips doesn't have go in cross yet
-		archs="aarch64* armv[567]* i686* x86_64* ppc64* ppc ppc-musl"
+		archs="aarch64* armv[567]* i686* x86_64* ppc64*"
 	fi
 	if [ "$CROSS_BUILD" ]; then
 		# target compiler to use; otherwise it'll just call gccgo
@@ -40,6 +39,7 @@ export CGO_CPPFLAGS="$CPPFLAGS"
 export CGO_CXXFLAGS="$CXXFLAGS"
 export CGO_LDFLAGS="$LDFLAGS"
 export CGO_ENABLED=1
+export GO111MODULE=auto
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) export GOCACHE="${XBPS_HOSTDIR}/gocache-muslc" ;;
 	*)	export GOCACHE="${XBPS_HOSTDIR}/gocache-glibc" ;;

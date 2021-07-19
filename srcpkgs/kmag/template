@@ -1,6 +1,6 @@
 # Template file for 'kmag'
 pkgname=kmag
-version=20.12.0
+version=21.04.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules gettext kcoreaddons kdoctools
@@ -11,4 +11,4 @@ maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/utilities/kmag/"
 distfiles="${KDE_SITE}/release-service/${version}/src/kmag-${version}.tar.xz"
-checksum=0ade18c35210cd80827ba239a413343663f04efe9974efdf6fe2aa50a3549975
+checksum=40659cd1b0773bb21f08ddc52a8d68ea1317660db276059851a60a5157b7c413

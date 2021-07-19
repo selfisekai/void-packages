@@ -1,20 +1,20 @@
 # Template file for 'kquickcharts'
 pkgname=kquickcharts
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools"
 makedepends="qt5-declarative-devel qt5-quickcontrols2-devel"
+checkdepends="glslang which"
 short_desc="QtQuick plugin providing high-performance charts"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-only OR LGPL-3.0-only"
 homepage="https://community.kde.org/Frameworks"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/kquickcharts-${version}.tar.xz"
-checksum=267b7d53a49f9e15d2d3e144f1d352ccc5eacb00286539294e0e8537206fd59b
+checksum=afb11dca1bfefd3b503df21181ce19e10769d9e4079b9eea9489353437b30107
 
 do_check() {
-	export QT_QPA_PLATFORM=offscreen
 	cd build
 	# QML tests require OpenGL
-	CTEST_OUTPUT_ON_FAILURE=TRUE ctest -E ".*\.qml"
+	ctest -E ".*\.qml"
 }

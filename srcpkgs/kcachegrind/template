@@ -1,6 +1,6 @@
 # Template file for 'kcachegrind'
 pkgname=kcachegrind
-version=20.12.0
+version=21.04.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules gettext kcoreaddons kdoctools
@@ -12,5 +12,5 @@ maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-only, GFDL-1.2-only"
 homepage="https://kde.org/applications/development/kcachegrind/"
 distfiles="${KDE_SITE}/release-service/${version}/src/kcachegrind-${version}.tar.xz"
-checksum=e9543784589d7de2de8bfcd0e398f708f54543a208115ab492843cd996a06ac4
+checksum=25d01173e31b8715bd1b22546ef9c39cf4f555d9860a106d34588bae55793926
 python_version=2

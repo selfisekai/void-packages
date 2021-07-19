@@ -1,24 +1,24 @@
 # Template file for 'purpose'
 pkgname=purpose
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
 hostmakedepends="kcoreaddons qt5-qmake qt5-host-tools extra-cmake-modules
- python3 gettext"
+ python3 gettext intltool"
 makedepends="qt5-devel qt5-declarative-devel kcoreaddons-devel kconfig-devel
- kio-devel kirigami2-devel"
+ kaccounts-integration-devel kio-devel kirigami2-devel"
+depends="accounts-qml-module kaccounts-providers"
 short_desc="Offers available actions for a specific purpose"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/purpose"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=bc48dbaa200336dafb5519ff63adf01c6bd22737a8c8423103e9c2d305f0f674
+checksum=67bb7d2a31ede9ab059b50a9f3ed7b53050060662b0bde29a08f30c25c413007
 
 do_check() {
-	export QT_QPA_PLATFORM=offscreen
 	cd build
 	# QML test that requires OpenGL
-	CTEST_OUTPUT_ON_FAILURE=TRUE ctest -E 'menutest'
+	ctest -E 'menutest'
 }
 
 purpose-devel_package() {

@@ -1,9 +1,8 @@
 # Template file for 'kpackage'
 pkgname=kpackage
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules gettext"
 makedepends="karchive-devel kconfig-devel kcoreaddons-devel ki18n-devel kdoctools-devel"
 short_desc="KDE Installation and loading of additional content as packages"
@@ -11,7 +10,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kpackage"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=e91f8dd81f4d2f5730ec444eb8acbe7e1891fa31df2fe01886ae0012d9ec2bd3
+checksum=6761f2220e17e10afd6944cc58b3e8bdc3cb691e0098893299b827e20b62cc98
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools"

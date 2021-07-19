@@ -1,9 +1,8 @@
 # Template file for 'knotifyconfig'
 pkgname=knotifyconfig
-version=5.77.0
+version=5.84.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules gettext
  qt5-host-tools qt5-qmake python3"
 makedepends="kio-devel"
@@ -12,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/knotifyconfig"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=29ba27263e4b33990685cced7bb2d8288cd3370adda1e1df7335e1cd9d1d5d99
+checksum=c25fab67f21210cbcd79a8a89fc20f549586ae75df106a07e56a052598b8f2f4
 
 knotifyconfig-devel_package() {
 	short_desc+=" - development"
